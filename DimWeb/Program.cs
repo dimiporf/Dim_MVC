@@ -5,7 +5,7 @@ builder.Services.AddControllersWithViews();
 
 // Added after stackOverflow recommendation
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
-builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
