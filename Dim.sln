@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimWeb", "DimWeb\DimWeb.csproj", "{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimWeb", "DimWeb\DimWeb.csproj", "{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimWebRazor_Temp", "DimWebRazor_Temp\DimWebRazor_Temp.csproj", "{CEED5C90-6278-45E9-A545-7F1362BECC76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
