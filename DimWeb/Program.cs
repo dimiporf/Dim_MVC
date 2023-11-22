@@ -1,4 +1,4 @@
-using DimWeb.Data;
+using DimWeb.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
