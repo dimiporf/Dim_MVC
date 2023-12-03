@@ -2,6 +2,7 @@ using DimWeb.DataAccess.Data;
 using DimWeb.DataAccess.Repository;
 using DimWeb.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddMvc().AddRazorRuntimeCompilation();
 // Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options=>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -35,6 +38,8 @@ app.UseStaticFiles();
 app.MapControllers();   
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
