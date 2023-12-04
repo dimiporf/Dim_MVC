@@ -18,7 +18,7 @@ builder.Services.AddMvc().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 //add Razor pages support
 builder.Services.AddRazorPages();
