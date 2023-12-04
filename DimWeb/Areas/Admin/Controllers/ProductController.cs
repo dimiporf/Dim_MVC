@@ -1,7 +1,9 @@
-﻿using DimWeb.DataAccess.Data;
+﻿using Dim.Utility;
+using DimWeb.DataAccess.Data;
 using DimWeb.DataAccess.Repository.IRepository;
 using DimWeb.Models;
 using DimWeb.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics.Metrics;
@@ -9,6 +11,7 @@ using System.Diagnostics.Metrics;
 namespace DimWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
