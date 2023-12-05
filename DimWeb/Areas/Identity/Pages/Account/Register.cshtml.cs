@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Dim.Utility;
+using DimWeb.DataAccess.Repository.IRepository;
 using DimWeb.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace DimWeb.Areas.Identity.Pages.Account
@@ -37,6 +39,7 @@ namespace DimWeb.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -44,7 +47,7 @@ namespace DimWeb.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -53,6 +56,7 @@ namespace DimWeb.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -119,6 +123,9 @@ namespace DimWeb.Areas.Identity.Pages.Account
             public string? State { get; set; }
             public string? PostalCode { get; set; }
             public string? PhoneNumber { get; set; }
+            public int? CompanyId { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
 
         }
 
@@ -139,6 +146,11 @@ namespace DimWeb.Areas.Identity.Pages.Account
                 {
                     Text = i,
                     Value = i
+                }),
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
+                {
+                    Text= i.Name,
+                    Value = i.Id.ToString()
                 })
             };
 
@@ -162,6 +174,11 @@ namespace DimWeb.Areas.Identity.Pages.Account
                 user.PostalCode = Input.PostalCode;
                 user.State = Input.State;
                 user.PhoneNumber = Input.PhoneNumber;
+
+                if (Input.Role == SD.Role_Company) {
+                    user.CompanyId = Input.CompanyId;
+                }
+
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
