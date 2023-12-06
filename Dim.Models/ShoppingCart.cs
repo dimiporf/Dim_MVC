@@ -22,5 +22,9 @@ namespace DimWeb.Models
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
+
+        //display purposes for cart
+        [NotMapped]
+        public double Price { get; set; }
     }
 }
