@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DimWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace DimWeb.DataAccess.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
-
+        IShoppingCartRepository ShoppingCart { get; }
+        IApplicationUserRepository ApplicationUser { get; }
         ICompanyRepository Company { get; }
         void Save();
     }
