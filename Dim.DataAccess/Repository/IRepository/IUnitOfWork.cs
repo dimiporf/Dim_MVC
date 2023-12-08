@@ -14,6 +14,9 @@ namespace DimWeb.DataAccess.Repository.IRepository
         IShoppingCartRepository ShoppingCart { get; }
         IApplicationUserRepository ApplicationUser { get; }
         ICompanyRepository Company { get; }
+
+        IOrderHeaderRepository OrderHeader { get; }
+        IOrderDetailRepository OrderDetail { get; }
         void Save();
     }
 }
