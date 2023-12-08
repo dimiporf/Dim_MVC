@@ -1,4 +1,5 @@
-﻿using DimWeb.DataAccess.Repository.IRepository;
+﻿using Dim.Utility;
+using DimWeb.DataAccess.Repository.IRepository;
 using DimWeb.Models;
 using DimWeb.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ namespace DimWeb.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
         public CartController(IUnitOfWork unitOfWork)
         {
@@ -68,9 +70,78 @@ namespace DimWeb.Areas.Customer.Controllers
             }
             return View(ShoppingCartVM);
         }
+        //POST method for Summary
+        [HttpPost]
+        [ActionName("Summary")]
+		public IActionResult SummaryPOST()
+		{
+			var claimsIdentity = (ClaimsIdentity)User.Identity;
+			var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-        //create asp actions for delete-add products
-        public IActionResult Plus(int cartId)
+            ShoppingCartVM.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId,
+                includeProperties: "Product");
+
+            ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
+            ShoppingCartVM.OrderHeader.ApplicationUserId = userId;
+
+			ApplicationUser applicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == userId);
+            
+			foreach (var cart in ShoppingCartVM.ShoppingCartList)
+			{
+				cart.Price = GetPriceBasedOnQuantity(cart);
+				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+			}
+            //Order Header sequence
+            if (applicationUser.CompanyId.GetValueOrDefault() == 0) 
+            {
+                ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
+                ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
+            }
+            else
+            {
+				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
+				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusApproved;
+			}
+
+            _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
+            _unitOfWork.Save();
+
+            //Order Detail sequence
+            foreach(var cart in ShoppingCartVM.ShoppingCartList)
+            {
+                OrderDetail orderDetail = new()
+                {
+                    ProductId = cart.ProductId,
+                    OrderHeaderId = ShoppingCartVM.OrderHeader.Id,
+                    Price = cart.Price,
+                    Count = cart.Count
+                };
+                _unitOfWork.OrderDetail.Add(orderDetail);
+                _unitOfWork.Save();
+            }
+
+			//Company customer logic
+
+			if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+			{
+                //it is a regular customer account and we need to capture payment
+                //stripe logic
+
+			}
+
+			return RedirectToAction(nameof(OrderConfirmation), new {id=ShoppingCartVM.OrderHeader.Id});
+		}
+
+
+		public IActionResult OrderConfirmation(int id)
+		{
+			return View(id);
+		}
+
+
+
+		//create asp actions for delete-add products
+		public IActionResult Plus(int cartId)
         {
             var cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
             cartFromDb.Count += 1;
@@ -79,6 +150,10 @@ namespace DimWeb.Areas.Customer.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+       
+
+
 
         public IActionResult Minus(int cartId)
         {
