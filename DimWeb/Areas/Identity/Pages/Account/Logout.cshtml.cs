@@ -28,7 +28,7 @@ namespace DimWeb.Areas.Identity.Pages.Account
             await _signInManager.SignOutAsync();
 
             //logic for removing cart instances
-            HttpContext.Session.Clear();
+            //HttpContext.Session.Clear();
 
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
