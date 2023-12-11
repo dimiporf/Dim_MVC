@@ -32,6 +32,15 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
 
+//add session for cart
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 //add Razor pages support
 builder.Services.AddRazorPages();
@@ -66,6 +75,10 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+//session implementation
+app.UseSession();
+
 
 //add mapping for Razor pages
 app.MapRazorPages();

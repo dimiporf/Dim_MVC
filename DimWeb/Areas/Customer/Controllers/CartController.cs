@@ -219,9 +219,12 @@ namespace DimWeb.Areas.Customer.Controllers
 
         public IActionResult Minus(int cartId)
         {
-            var cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
+            var cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId, tracked:true);
             if (cartFromDb.Count <= 1)
             {
+                //remove cart session
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
+
                 _unitOfWork.ShoppingCart.Remove(cartFromDb);
             }
 
@@ -230,6 +233,10 @@ namespace DimWeb.Areas.Customer.Controllers
                 cartFromDb.Count -= 1;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
             }
+
+            
+
+
             _unitOfWork.Save();
 
             return RedirectToAction(nameof(Index));
@@ -237,10 +244,13 @@ namespace DimWeb.Areas.Customer.Controllers
 
         public IActionResult Remove(int cartId)
         {
-            var cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
+            var cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId, tracked:true);
+            
+            //remove cart session
+            HttpContext.Session.SetInt32(SD.SessionCart,_unitOfWork.ShoppingCart.GetAll(u=>u.ApplicationUserId==cartFromDb.ApplicationUserId).Count()-1);
 
             _unitOfWork.ShoppingCart.Remove(cartFromDb);
-
+            
             _unitOfWork.Save();
 
             return RedirectToAction(nameof(Index));
