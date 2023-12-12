@@ -22,42 +22,42 @@ namespace DimWeb.DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CategoryId",
-                value: 1027);
+                value: 1);
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CategoryId",
-                value: 1027);
+                value: 2);
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CategoryId",
-                value: 1027);
+                value: 1);
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CategoryId",
-                value: 1027);
+                value: 3);
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CategoryId",
-                value: 1028);
+                value: 1);
 
             migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CategoryId",
-                value: 1027);
+                value: 2);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using DimWeb.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
+using DimWeb.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//add dbInitializer to services
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
 //add Razor pages support
 builder.Services.AddRazorPages();
@@ -88,6 +91,9 @@ app.UseAuthorization();
 //session implementation
 app.UseSession();
 
+//invoke dbInitializer
+SeedDatabase();
+
 
 //add mapping for Razor pages
 app.MapRazorPages();
@@ -97,3 +103,15 @@ app.MapControllerRoute(
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+//DbInitializer
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
