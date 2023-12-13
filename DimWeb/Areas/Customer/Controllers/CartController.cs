@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace DimWeb.Areas.Customer.Controllers
 {
-    [Area("customer")]
+    [Area("Customer")]
     [Authorize]
     public class CartController : Controller
     {
