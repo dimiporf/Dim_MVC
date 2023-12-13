@@ -37,7 +37,7 @@ namespace DimWeb.DataAccess.DbInitializer
                     _db.Database.Migrate();
                 }
             }
-            catch(Exception e) { }
+            catch(Exception ex) { }
 
 
             //2.Create roles if they are not created

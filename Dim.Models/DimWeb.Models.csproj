@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -11,8 +11,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.3" />
+	  <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.3" />
 	  <PackageReference Include="Stripe.net" Version="43.6.0" />
 	</ItemGroup>
 
