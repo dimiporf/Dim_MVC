@@ -5,13 +5,11 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimWeb", "DimWeb\DimWeb.csproj", "{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimWebRazor_Temp", "DimWebRazor_Temp\DimWebRazor_Temp.csproj", "{CEED5C90-6278-45E9-A545-7F1362BECC76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimWeb.DataAccess", "Dim.DataAccess\DimWeb.DataAccess.csproj", "{49A9D3B4-AC3E-4CC3-AFB6-A694B51D42A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimWeb.DataAccess", "Dim.DataAccess\DimWeb.DataAccess.csproj", "{49A9D3B4-AC3E-4CC3-AFB6-A694B51D42A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimWeb.Models", "Dim.Models\DimWeb.Models.csproj", "{643071A9-CF22-4CDE-93CA-B149036F2727}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimWeb.Models", "Dim.Models\DimWeb.Models.csproj", "{643071A9-CF22-4CDE-93CA-B149036F2727}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimWeb.Utility", "Dim.Utility\DimWeb.Utility.csproj", "{11B1FB8C-6C84-4AA9-AFA6-C9B80FBC3C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimWeb.Utility", "Dim.Utility\DimWeb.Utility.csproj", "{11B1FB8C-6C84-4AA9-AFA6-C9B80FBC3C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EC386CE-71E3-4A45-96ED-52DFA63C6BD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEED5C90-6278-45E9-A545-7F1362BECC76}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49A9D3B4-AC3E-4CC3-AFB6-A694B51D42A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49A9D3B4-AC3E-4CC3-AFB6-A694B51D42A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A9D3B4-AC3E-4CC3-AFB6-A694B51D42A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
