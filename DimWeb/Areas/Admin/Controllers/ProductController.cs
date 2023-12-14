@@ -61,7 +61,7 @@ namespace DimWeb.Areas.Admin.Controllers
             else 
             {
                 //update
-                productVM.Product = _unitOfWork.Product.GetFirstOrDefault(u=> u.Id == id);
+                productVM.Product = _unitOfWork.Product.Get(u=> u.Id == id);
                 return View(productVM);
             }
         }
@@ -165,14 +165,14 @@ namespace DimWeb.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Product? obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+            Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
             if (obj == null) { return NotFound(); };
             _unitOfWork.Product.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Product Deleted Successfully!";
             return RedirectToAction("Index");
         }
-        #region API CALLS
+         #region API CALLS
 
         [HttpGet]
         public IActionResult GetAll()
@@ -184,7 +184,7 @@ namespace DimWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete (int? id)
         {
-            var productToBeDeleted = _unitOfWork.Product.GetFirstOrDefault(u=>u.Id == id);
+            var productToBeDeleted = _unitOfWork.Product.Get(u=>u.Id == id);
             if (productToBeDeleted == null) 
             {
                 return Json(new { success= false , message = "Error while deleting"});

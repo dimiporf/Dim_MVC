@@ -41,7 +41,7 @@ namespace DimWeb.Areas.Admin.Controllers
             else 
             {
                 //update
-                Company companyObj = _unitOfWork.Company.GetFirstOrDefault(u=> u.Id == id);
+                Company companyObj = _unitOfWork.Company.Get(u=> u.Id == id);
                 return View(companyObj);
             }
         }
@@ -74,7 +74,7 @@ namespace DimWeb.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Company? obj = _unitOfWork.Company.GetFirstOrDefault(u => u.Id == id);
+            Company? obj = _unitOfWork.Company.Get(u => u.Id == id);
             if (obj == null) { return NotFound(); };
             _unitOfWork.Company.Remove(obj);
             _unitOfWork.Save();
@@ -93,7 +93,7 @@ namespace DimWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete (int? id)
         {
-            var companyToBeDeleted = _unitOfWork.Company.GetFirstOrDefault(u=>u.Id == id);
+            var companyToBeDeleted = _unitOfWork.Company.Get(u=>u.Id == id);
             if (companyToBeDeleted == null) 
             {
                 return Json(new { success= false , message = "Error while deleting"});

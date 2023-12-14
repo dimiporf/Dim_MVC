@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Added after stackOverflow recommendation
-builder.Services.AddMvc().AddRazorRuntimeCompilation();
+//builder.Services.AddMvc().AddRazorRuntimeCompilation();
 
 // Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options=>
@@ -24,7 +24,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<IdentityUser,
+    IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 
 builder.Services.ConfigureApplicationCookie(options => {
@@ -36,8 +37,8 @@ builder.Services.ConfigureApplicationCookie(options => {
 //facebook authentication logic
 builder.Services.AddAuthentication().AddFacebook(option =>
 {
-    option.AppId = "______This where you insert the app keys______";
-    option.AppSecret = "______This where you insert the app keys______";
+    option.AppId = "193813826680436";
+    option.AppSecret = "8fc42ae3f4f2a4986143461d4e2da919";
 });
 
 
@@ -65,12 +66,12 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -80,7 +81,7 @@ app.UseStaticFiles();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 // Added after stackOverflow recommendation
-app.MapControllers();   
+//app.MapControllers();
 
 app.UseRouting();
 
@@ -98,9 +99,12 @@ SeedDatabase();
 //add mapping for Razor pages
 app.MapRazorPages();
 
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();
 
