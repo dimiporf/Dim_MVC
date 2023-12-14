@@ -7,7 +7,7 @@
       "defaultValue": "DimWeb-LiveProject",
       "metadata": {
         "_parameterType": "resourceGroup",
-        "description": "Name of the resource group for the resource. It is recommended to put resources under same resource group for better tracking."
+        "description": "Name of the resource group for the resource. It is recommended to put resources under the same resource group for better tracking."
       }
     },
     "resourceGroupLocation": {
@@ -15,7 +15,7 @@
       "defaultValue": "westeurope",
       "metadata": {
         "_parameterType": "location",
-        "description": "Location of the resource group. Resource groups could have different location than resources."
+        "description": "Location of the resource group. Resource groups could have a different location than resources."
       }
     },
     "resourceLocation": {
@@ -23,7 +23,7 @@
       "defaultValue": "[parameters('resourceGroupLocation')]",
       "metadata": {
         "_parameterType": "location",
-        "description": "Location of the resource. By default use resource group's location, unless the resource provider is not supported there."
+        "description": "Location of the resource. By default, use the resource group's location unless the resource provider is not supported there."
       }
     }
   },
@@ -53,22 +53,31 @@
               "location": "[parameters('resourceLocation')]",
               "name": "dim",
               "type": "Microsoft.Sql/servers",
-              "apiVersion": "2017-10-01-preview"
+              "apiVersion": "2021-02-01-preview",
+              "properties": {
+                "administratorLogin": "yourAdminLogin",
+                "administratorLoginPassword": "yourAdminPassword"
+              }
             },
             {
+              "apiVersion": "2021-02-01-preview",
+              "dependsOn": [
+                "dim"
+              ],
+              "kind": "v12.0,user",
+              "location": "[parameters('resourceLocation')]",
+              "name": "dim/Dim",
+              "properties": {
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "createMode": "Default",
+                "maxSizeBytes": 1073741824
+              },
               "sku": {
                 "name": "Basic",
                 "tier": "Basic",
                 "capacity": 5
               },
-              "kind": "v12.0,user",
-              "location": "[parameters('resourceLocation')]",
-              "name": "dim/Dim",
-              "type": "Microsoft.Sql/servers/databases",
-              "apiVersion": "2017-10-01-preview",
-              "dependsOn": [
-                "dim"
-              ]
+              "type": "Microsoft.Sql/servers/databases"
             }
           ]
         }
