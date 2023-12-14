@@ -55,8 +55,8 @@
               "type": "Microsoft.Sql/servers",
               "apiVersion": "2021-02-01-preview",
               "properties": {
-                "administratorLogin": "yourAdminLogin",
-                "administratorLoginPassword": "yourAdminPassword"
+                "administratorLogin": "sqladmin",
+                "administratorLoginPassword": "Admin123*"
               }
             },
             {
