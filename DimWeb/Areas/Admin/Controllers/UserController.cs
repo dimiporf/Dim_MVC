@@ -57,7 +57,8 @@ namespace DimWeb.Areas.Admin.Controllers
         public IActionResult RoleManagement(RoleManagementVM roleManagementVM)
         {
 
-            string oldRole = _unitOfWork.ApplicationUser.Get(u => u.Id == u.Id, includeProperties: "Company").Name;
+            string oldRole = _userManager.GetRolesAsync(_unitOfWork.ApplicationUser.Get(u => u.Id == roleManagementVM.ApplicationUser.Id))
+                    .GetAwaiter().GetResult().FirstOrDefault();
 
             ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == roleManagementVM.ApplicationUser.Id);
 
